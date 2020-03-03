@@ -5,6 +5,8 @@ var colorDisplay = document.getElementById("colorDisplay");
 var feedback = document.getElementById("feedback");
 var header = document.querySelector("h1");
 var reset = document.getElementById("reset");
+var easyBtn = document.querySelector("#easy");
+var hardBtn = document.querySelector("#hard");
 var pickedColor = pickColor();
 var gameOver = false;
 
@@ -81,4 +83,20 @@ reset.addEventListener("click", function(){
   feedback.textContent = "";
   //Change game over status
   gameOver = false;
+});
+
+easyBtn.addEventListener("click", function(){
+  //Highlight selected diffuculty
+  easyBtn.classList.add("selected");
+  hardBtn.classList.remove("selected");
+  //
+  colors = generateRandomColors(3);
+  pickedColor = pickColor();
+  //
+  for (var i = 0; )
+});
+
+hardBtn.addEventListener("click", function(){
+  hardBtn.classList.add("selected");
+  easyBtn.classList.remove("selected");
 });
