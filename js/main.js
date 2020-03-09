@@ -1,4 +1,5 @@
-var colors = generateRandomColors(6);
+var numSquares = 6;
+var colors = generateRandomColors(numSquares);
 
 var squares = document.getElementsByClassName("square");
 var colorDisplay = document.getElementById("colorDisplay");
@@ -67,7 +68,7 @@ for(var i = 0; i < squares.length; i++) {
 
 reset.addEventListener("click", function(){
   //generate all new Colors
-  colors = generateRandomColors(6);
+  colors = generateRandomColors(numSquares);
   //pick new random color from array
   pickedColor = pickColor();
   colorDisplay.textContent = pickedColor;
@@ -76,7 +77,7 @@ reset.addEventListener("click", function(){
     squares[i].style.backgroundColor = colors[i];
   }
   //Change header color
-  header.style.backgroundColor = "#232323";
+  header.style.backgroundColor = "steelblue";
   //Change reset button text back
   reset.textContent = "New Colors";
   //Erase feedback
@@ -89,14 +90,31 @@ easyBtn.addEventListener("click", function(){
   //Highlight selected diffuculty
   easyBtn.classList.add("selected");
   hardBtn.classList.remove("selected");
-  //
-  colors = generateRandomColors(3);
+  //Generate new set of colours and pick one of the new colours
+  numSquares = 3;
+  colors = generateRandomColors(numSquares);
   pickedColor = pickColor();
-  //
-  for (var i = 0; )
+  //Loop through squares and display none for 3 of them
+  for (var i = 0; i < squares.length; i++) {
+      if (colors[i]) {
+        squares[i].style.background = colors[i];
+      } else {
+        squares[i].style.display = "none";
+      }
+  }
 });
 
 hardBtn.addEventListener("click", function(){
+  //Highlight selected diffuculty
   hardBtn.classList.add("selected");
   easyBtn.classList.remove("selected");
+  //Generate new set of colours and pick one of the new colours
+  numSquares = 6;
+  colors = generateRandomColors(numSquares);
+  pickedColor = pickColor();
+  //Loop through squares set new colours
+  for (var i = 0; i < squares.length; i++) {
+      squares[i].style.background = colors[i];
+      squares[i].style.display = "";
+  }
 });
