@@ -106,23 +106,7 @@ for(var i = 0; i < squares.length; i++) {
 }
 
 resetButton.addEventListener("click", function(){
-  //generate all new Colors
-  colors = generateRandomColors(numSquares);
-  //pick new random color from array
-  pickedColor = pickColor();
-  colorDisplay.textContent = pickedColor;
-  //change colors of squares
-  for (var i = 0; i < squares.length; i++) {
-    squares[i].style.backgroundColor = colors[i];
-  }
-  //Change header color
-  header.style.backgroundColor = "steelblue";
-  //Change reset button text back
-  resetButton.textContent = "New Colors";
-  //Erase feedback
-  feedback.textContent = "";
-  //Change game over status
-  gameOver = false;
+  reset();
 });
 
 // easyBtn.addEventListener("click", function(){
