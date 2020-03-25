@@ -1,5 +1,7 @@
 var numSquares = 6;
-var colors = generateRandomColors(numSquares);
+var colors = [];
+var pickedColor;
+var gameOver = false;
 
 var squares = document.getElementsByClassName("square");
 var colorDisplay = document.getElementById("colorDisplay");
@@ -7,8 +9,55 @@ var feedback = document.getElementById("feedback");
 var header = document.querySelector("h1");
 var resetButton = document.getElementById("reset");
 var modeButtons = document.querySelectorAll(".mode");
-var pickedColor = pickColor();
-var gameOver = false;
+
+
+init();
+
+//Init function to run start up processes
+function init() {
+  setUpModeButtons();
+  setUpSquares();
+  reset();
+}
+
+//Set up mode button listeners
+function setUpModeButtons() {
+  //Loop through mode buttons to add event listeners
+  for (var i = 0; i < modeButtons.length; i++) {
+    modeButtons[i].addEventListener("click", function(){
+      //Remove "select" class from both buttons and add it to selected button
+      modeButtons[0].classList.remove("selected");
+      modeButtons[1].classList.remove("selected");
+      this.classList.add("selected");
+
+      this.textContent === "Easy" ? numSquares = 3: numSquares = 6;
+      reset();
+    });
+  }
+}
+
+//Set up squares on screen
+function setUpSquares() {
+  //Loop through all squares for all events and background color settings
+  for(var i = 0; i < squares.length; i++) {
+    //Click listeners for each square
+    squares[i].addEventListener("click", function(){
+      if (!gameOver) {
+        var clickedColor = this.style.backgroundColor;
+        //Compare clicked color to correct color
+        if (clickedColor === pickedColor) {
+          feedback.textContent = "Correct!";
+          changeColors(clickedColor);
+          resetButton.textContent = "Play Again?";
+          gameOver = true;
+        } else {
+          this.style.backgroundColor = "#232323";
+          feedback.textContent = "Try Again";
+        }
+      }
+    });
+  }
+}
 
 //Return 1 random color
 function randomColor() {
@@ -64,45 +113,6 @@ function reset() {
   feedback.textContent = "";
   //Change game over status
   gameOver = false;
-}
-
-//Change to display rgb value or color user will be guessing
-colorDisplay.textContent = pickedColor;
-
-//Loop through mode buttons to add event listeners
-for (var i = 0; i < modeButtons.length; i++) {
-  modeButtons[i].addEventListener("click", function(){
-    //Remove "select" class from both buttons and add it to selected button
-    modeButtons[0].classList.remove("selected");
-    modeButtons[1].classList.remove("selected");
-    this.classList.add("selected");
-
-    this.textContent === "Easy" ? numSquares = 3: numSquares = 6;
-    reset();
-  });
-}
-
-//Loop through all squares for all events and background color settings
-for(var i = 0; i < squares.length; i++) {
-  //Set square colors
-  squares[i].style.backgroundColor = colors[i];
-
-  //Click listeners for each square
-  squares[i].addEventListener("click", function(){
-    if (!gameOver) {
-      var clickedColor = this.style.backgroundColor;
-      //Compare clicked color to correct color
-      if (clickedColor === pickedColor) {
-        feedback.textContent = "Correct!";
-        changeColors(clickedColor);
-        resetButton.textContent = "Play Again?";
-        gameOver = true;
-      } else {
-        this.style.backgroundColor = "#232323";
-        feedback.textContent = "Try Again";
-      }
-    }
-  });
 }
 
 resetButton.addEventListener("click", function(){
